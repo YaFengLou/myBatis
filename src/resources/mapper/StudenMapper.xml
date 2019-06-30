@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lanouMybatis.dao.StudenDao">
+    <resultMap id="studen" type="com.lanouMybatis.bean.Studen">
+
+    </resultMap>
+
+    <select id="queryByid" resultMap="studen" >
+        select * from studen
+        <where>
+            <if test="id !=null">
+                id  = #{id}
+            </if>
+            <if test="sname !=null">
+                and sname  = #{sname}
+            </if>
+            <if test="age !=null">
+                and age  = #{age}
+            </if>
+            <if test="gender !=null">
+                and gender  = #{gender}
+            </if>
+            <if test="nickName != null">
+                and nick_name  = #{nickName}
+            </if>
+        </where>
+    </select>
+    
+    <select id="queryBychoose" resultType="com.lanouMybatis.bean.Studen">
+        select * from studen
+        <where>
+            <choose>
+                <when test="id !=null">
+                    id  = #{id}
+                </when>
+                <when test="sname !=null">
+                    and sname  = #{sname}
+                </when>
+                <when test="age !=null">
+                    and age  = #{age}
+                </when>
+                <when test="gender !=null">
+                    and gender  = #{gender}
+                </when>
+                <when test="nickName != null">
+                    and nick_name  = #{nickName}
+                </when>
+                <otherwise>
+                    and 1=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+</mapper>

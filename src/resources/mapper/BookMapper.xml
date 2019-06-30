@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanouMybatis.dao.BookDao">
+    <!-- -->
+    <resultMap id="book" type="com.lanouMybatis.bean.Book">
+        <id column="bid" property="id"/>
+        <result column="bname" property="bname"/>
+        <result column="author" property="author"/>
+        <result column="gender" property="gender"/>
+        <result column="price" property="price"/>
+        <result column="description" property="description"/>
+
+        <association property="bookType" javaType="com.lanouMybatis.bean.BookType">
+            <id column="bt_id" property="id"/>
+            <result column="tname" property="tname"/>
+        </association>
+    </resultMap>
+
+    
+    <select id="queryAllBook" resultMap="book">
+        <!--select * from book;-->
+        select b.*,bt.*, b.id bid, bt.id bt_id from book b, booktype bt where b.btype = bt.id;
+    </select>
+</mapper>

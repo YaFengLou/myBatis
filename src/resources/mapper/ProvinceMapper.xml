@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- namespace对应空Dao接口的全名 -->
+<mapper namespace="com.lanouMybatis.dao.ProvinceDao">
+    <!-- 此处的id是查询语句的名称，对应接口中的方法名    这个resultType 指示的是xml文件里面的 或者写全名 就是你的实现类的路径-->
+    <select id="queryProvince" resultType="Province">
+    select * from province;
+    </select>
+
+
+    <resultMap id="province" type="com.lanouMybatis.bean.Province">
+        <id property="id" column="p_id"/>
+        <result property="pname" column="pname"/>
+
+        <collection property="cities" ofType="com.lanouMybatis.bean.City">
+            <result column="c_id" property="id"/>
+            <result property="cname" column="cname"/>
+            <result property="pid" column="pid"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryAllProvince" resultMap="province">
+        SELECT c.*,p.* ,c.id c_id , p.id p_id FROM city c ,province p WHERE p.id = c.pid
+    </select>
+</mapper>

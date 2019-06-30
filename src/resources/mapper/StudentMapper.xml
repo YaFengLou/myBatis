@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanouMybatis.dao.StudentDao">
+    <select id="queryAll" resultType="Student">
+        select * from student;
+    </select>
+    <!-- 只有一个参数的时候只要指定了参数类型，参数是什么名字无所谓-->
+    <select id="queryBysage" resultType="Student" parameterType="integer">
+        select * from student where sage = #{sage};
+    </select>
+    <!--  有多个参数的时候，需要在定义Dao层的时候就需要指定参数类型（与数据库的对应）-->
+    <select id="queryBysageAndSsex" resultType="Student" >
+        select * from student where sage = #{sage} and ssex = '男';
+    </select>
+
+    <!-- 插入一个对象类型的参数-->
+    <insert id="insertStudent" parameterType="Student">
+        insert into student(sid,sname,sage,ssex)values (#{sid},#{sname},#{sage},#{ssex})
+    </insert>
+
+    <!-- 插入几个参数的，不是对象类型的 因为参数不唯一 所以不需要parameterType-->
+    <insert id="insertStudentBySidBySname" >
+        insert into student(sid,sname)values (#{sid},#{sname})
+    </insert>
+</mapper>

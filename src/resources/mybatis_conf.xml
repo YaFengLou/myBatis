@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="jdbc.properties" />
+    <!--这个是为了mapper里面用的时候写简单一些，也可以在mapper里面写完整路径 -->
+    
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    
+    <typeAliases>
+        <typeAlias type="com.lanouMybatis.bean.Student" alias="Student"/>
+        <typeAlias type="com.lanouMybatis.bean.Province" alias="Province" />
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!--一定不要忘记在这里配置注册 -->
+<!--        <mapper class="com.lanouMybatis.dao.TeacherDao" />-->
+<!--        <mapper resource="mapper/StudentMapper.xml"/>-->
+        <mapper resource="mapper/ProvinceMapper.xml" />
+        <mapper resource="mapper/BookMapper.xml"/>
+        <mapper resource="mapper/StudenMapper.xml"/>
+    </mappers>
+
+</configuration>
